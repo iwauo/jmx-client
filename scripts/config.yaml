@@ -1,0 +1,44 @@
+# Information of the JMX endpoint
+endpoint:
+  # Optional: JMX server type: 'weblogic' / 'generic' (Default: 'generic')
+  type: weblogic
+  # Optional: JMX host server address (Default: localhost)
+  host: localhost
+  # Optional: JMX server port (Default: 9000)
+  port: 9000
+  # Optional: The credential information of the connecting user.
+  #  (Default: User credential is not sent to the server)
+  user: admin
+  pass: weblogic1
+
+# Settings for output data
+output:
+  # Optional: Interval between the data retrieval, in seconds. (Default: 5 seconds)
+  interval: 5
+  # Optional: How many times retrieve the metrics data. (Default: 10 times)
+  rows: 5
+  # Optional: Whether CRLF is used as the line separator or uses LF instead. (Default: true)
+  usesCRLF: true
+  # Optional: The format of the timestamp. (Default: 'yyyy-MM-dd'T'HH:mm:ss.SSSZ')
+  timestamp: "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+
+# The list of JMX attributes
+columns:
+  # Required: Column name
+- name: heapEdenSpaceUsage(committed)
+  # Required: The MBean name
+  type: java.lang:type=MemoryPool,name=Eden Space
+  # Required: The MBean attribute name
+  attribute: Usage
+  # Optional: The property name of the attribute. (This is effective only if the attributes value is a Composite.)
+  key: committed
+
+- name: heapEdenSpaceUsage
+  type: java.lang:type=MemoryPool,name=Eden Space
+  attribute: Usage
+
+- name: maxThreads
+  type: Catalina:type=ThreadPool,name="http-apr-8080"
+  attribute: maxThreads
+
+
